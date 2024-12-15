@@ -1,5 +1,5 @@
 class Api::CocoaPuffsController < ApplicationController
-    before_action :set_cocoa_puff, only: [:show, :update, :destroy]
+    before_action :set_cocoa_puff, only: [:update, :destroy]
   
     # GET /api/cocoa_puffs
     def index

@@ -1,0 +1,72 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+
+ body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+}
+
+.coconut-input, .add-coconut-button, .btn-add-fruity-pebbles{
+    padding: 10px;
+    border-radius: 10px;
+   
+}
+
+.add-coconut-button, .btn-add-fruity-pebbles{
+    cursor: pointer;
+}
+
+.input-section{
+    display: flex;
+    gap: 10px;
+}
+
+
+.coconut-container {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    row-gap: 20px;
+   /* padding: 20px;*/
+    min-height: auto;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+
+  .coconut {
+    flex: 0 1 calc((100% / 3) - 82px);
+   /* text-align: center;*/
+   border: 1px solid gray;
+   border-radius: 50px;
+   padding: 20px;
+  }
+
+  .top-div{
+    display: flex;
+    gap: 10px;
+  }
+
+  .name-div{
+    display: flex;
+    flex-direction: column;
+  }
+  
+
+

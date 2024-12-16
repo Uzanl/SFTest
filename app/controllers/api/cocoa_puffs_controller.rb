@@ -3,7 +3,7 @@ class Api::CocoaPuffsController < ApplicationController
   
     # GET /api/cocoa_puffs
     def index
-      @cocoa_puffs = CocoaPuff.all
+      @cocoa_puffs = CocoaPuff.where(archived: false)
       render json: @cocoa_puffs
     end
   

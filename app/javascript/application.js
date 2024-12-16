@@ -161,3 +161,48 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+// Adiciona um event listener para cliques no botão de arquivar
+document.addEventListener('click', async (event) => {
+  // Verifica se o clique foi em um link de arquivar
+  if (event.target.classList.contains('btn-link')) {
+    event.preventDefault();
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+    console.log("CSRF Token:", csrfToken);
+
+    // Obtém o elemento pai mais próximo com o atributo data-id
+    const coconutDiv = event.target.closest('.coconut');
+    const cocoaPuffId = coconutDiv?.dataset.id;
+
+    if (!cocoaPuffId) {
+      console.error('ID do CocoaPuff não encontrado.');
+      return;
+    }
+
+    try {
+      // Faz a requisição PATCH para arquivar o CocoaPuff
+      const response = await fetch(`/api/cocoa_puffs/${cocoaPuffId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          "X-CSRF-Token": csrfToken // Inclua o token CSRF aqui
+        },
+        body: JSON.stringify({ cocoa_puff: { archived: true } }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao arquivar o CocoaPuff.');
+      }
+
+      const updatedCocoaPuff = await response.json();
+      console.log('CocoaPuff arquivado com sucesso:', updatedCocoaPuff);
+
+      // Atualiza a interface do usuário (opcional)
+      coconutDiv.remove(); // Remove a div do DOM
+    } catch (error) {
+      console.error('Erro ao arquivar:', error);
+      alert('Não foi possível arquivar o CocoaPuff. Tente novamente.');
+    }
+  }
+});
+
+

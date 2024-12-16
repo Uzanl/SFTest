@@ -112,7 +112,6 @@ function createCoconutDiv(id, name) {
   return coconutDiv;
 }
 
-// Adiciona um event listener para cliques no botão de arquivar
 document.addEventListener('click', async (event) => {
   // Verifica se o clique foi em um link de arquivar
   if (event.target.classList.contains('btn-link')) {

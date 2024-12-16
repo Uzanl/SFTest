@@ -9,96 +9,95 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
- body{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100dvh;
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 70%;
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 70%;
 }
 
-.coconut-input, .add-coconut-button, .btn-add-fruity-pebbles{
-    padding: 10px;
-    border-radius: 10px;
-   
+.coconut-input,
+.add-coconut-button,
+.btn-add-fruity-pebbles {
+  padding: 10px;
+  border-radius: 10px;
+
 }
 
-.add-coconut-button, .btn-add-fruity-pebbles{
-    cursor: pointer;
+.add-coconut-button,
+.btn-add-fruity-pebbles {
+  cursor: pointer;
+  color: white;
+  background-color: cadetblue;
 }
 
-.input-section{
-    display: flex;
-    gap: 10px;
+.input-section {
+  display: flex;
+  gap: 10px;
 }
-
 
 .coconut-container {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 40px;
-    row-gap: 20px;
-   /* padding: 20px;*/
-    min-height: auto;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 40px;
+  row-gap: 20px;
+  min-height: auto;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
 
-  .coconut {
-    flex: 0 1 calc((100% / 3) - 82px);
-   /* text-align: center;*/
-   border: 1px solid gray;
-   border-radius: 50px;
-   padding: 20px;
-  }
+.coconut {
+  flex: 0 1 calc((100% / 3) - 82px);
+  border: 1px solid cadetblue;
+  border-radius: 50px;
+  padding: 20px;
+}
 
-  .top-div{
-    display: flex;
-    gap: 10px;
-  }
+.top-div {
+  display: flex;
+  gap: 10px;
+}
 
-  .name-div{
-    display: flex;
-    flex-direction: column;
-  }
+.name-div {
+  display: flex;
+  flex-direction: column;
+}
 
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 40%;
-  }
-  
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+}
 
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}

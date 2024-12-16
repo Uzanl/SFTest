@@ -7,12 +7,11 @@ document.getElementById("add-coconut-button").addEventListener("click", async fu
     console.log("CSRF Token:", csrfToken);
 
     try {
-      // Enviando a requisição POST para o servidor
       const response = await fetch("/api/cocoa_puffs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRF-Token": csrfToken // Inclua o token CSRF aqui
+          "X-CSRF-Token": csrfToken,
         },
         body: JSON.stringify({ cocoa_puff: { name: input.value, archived: false } }),
       });
@@ -23,58 +22,9 @@ document.getElementById("add-coconut-button").addEventListener("click", async fu
 
       const newCocoaPuff = await response.json();
 
-      // Criando o elemento HTML após resposta positiva do servidor
-      const coconutDiv = document.createElement("div");
-      coconutDiv.className = "coconut";
-      coconutDiv.setAttribute("data-id", newCocoaPuff.id); // Adicionando o atributo data-id com o ID do novo item
-
-      // Primeira div (agrupando name-div e button-div)
-      const topDiv = document.createElement("div");
-      topDiv.className = "top-div";
-
-      // name-div: nome e link de arquivar
-      const nameDiv = document.createElement("div");
-      nameDiv.className = "name-div";
-      nameDiv.innerHTML = `
-              <span>${newCocoaPuff.name}</span>
-              <a href="#" class="btn btn-link">Arquivar</a>
-          `;
-
-      // button-div: botão
-      const buttonDiv = document.createElement("div");
-      buttonDiv.className = "button-div";
-      buttonDiv.innerHTML = `<button type="button" class="btn btn-add-fruity-pebbles">Adicionar Fruity Pebbles</button>`;
-
-      // Adicionando nameDiv e buttonDiv dentro de topDiv
-      topDiv.appendChild(nameDiv);
-      topDiv.appendChild(buttonDiv);
-
-      // Segunda div: label e tabela
-      const tableDiv = document.createElement("div");
-      tableDiv.className = "table-div";
-      tableDiv.innerHTML = `
-              <label for="table">Fruity Pebbles:</label>
-              <table class="table">
-                  <thead>
-                      <tr>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>PebbleCount</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                  </tbody>
-              </table>
-          `;
-
-      // Adicionando topDiv e tableDiv dentro do coconutDiv
-      coconutDiv.appendChild(topDiv);
-      coconutDiv.appendChild(tableDiv);
-
-      // Adicionando o coconutDiv ao container
+      const coconutDiv = createCoconutDiv(newCocoaPuff.id, newCocoaPuff.name);
       coconutContainer.appendChild(coconutDiv);
 
-      // Limpando o campo de entrada
       input.value = "";
     } catch (error) {
       console.error("Erro:", error.message);
@@ -83,83 +33,85 @@ document.getElementById("add-coconut-button").addEventListener("click", async fu
   }
 });
 
-
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
   try {
-    // Faz a requisição para a API usando await
-    const response = await fetch('/api/cocoa_puffs');
-
-    // Verifica se a resposta foi bem-sucedida
+    const response = await fetch("/api/cocoa_puffs");
     if (!response.ok) {
-      throw new Error('Failed to fetch cocoa puffs');
+      throw new Error("Failed to fetch cocoa puffs");
     }
 
-    // Converte a resposta para JSON
     const cocoaPuffs = await response.json();
+    coconutContainer.innerHTML = "";
 
-    // Limpa o container antes de adicionar novas divs
-    coconutContainer.innerHTML = '';
-
-    // Itera sobre os itens de cocoa_puffs e cria uma div para cada item
-    cocoaPuffs.forEach(coconut => {
-      // Criando o elemento HTML para o coconut
-      const coconutDiv = document.createElement("div");
-      coconutDiv.className = "coconut";
-
-      coconutDiv.setAttribute("data-id", coconut.id);
-
-
-      // Primeira div (agrupando name-div e button-div)
-      const topDiv = document.createElement("div");
-      topDiv.className = "top-div";
-
-      // name-div: nome e link de arquivar
-      const nameDiv = document.createElement("div");
-      nameDiv.className = "name-div";
-      nameDiv.innerHTML = `
-        <span>${coconut.name}</span>
-        <a href="#" class="btn btn-link">Arquivar</a>
-      `;
-
-      // button-div: botão
-      const buttonDiv = document.createElement("div");
-      buttonDiv.className = "button-div";
-      buttonDiv.innerHTML = `<button type="button" class="btn btn-add-fruity-pebbles">Adicionar Fruity Pebbles</button>`;
-
-      // Adicionando nameDiv e buttonDiv dentro de topDiv
-      topDiv.appendChild(nameDiv);
-      topDiv.appendChild(buttonDiv);
-
-      // Segunda div: label e tabela
-      const tableDiv = document.createElement("div");
-      tableDiv.className = "table-div";
-      tableDiv.innerHTML = `
-        <label for="table">Fruity Pebbles:</label>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>PebbleCount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Aqui você pode adicionar as linhas da tabela conforme necessário -->
-          </tbody>
-        </table>
-      `;
-
-      // Adicionando topDiv e tableDiv dentro do coconutDiv
-      coconutDiv.appendChild(topDiv);
-      coconutDiv.appendChild(tableDiv);
-
-      // Adicionando o coconutDiv ao container
+    cocoaPuffs.forEach((coconut) => {
+      const coconutDiv = createCoconutDiv(coconut.id, coconut.name);
       coconutContainer.appendChild(coconutDiv);
     });
   } catch (error) {
-    console.error('Error fetching cocoa puffs:', error);
+    console.error("Error fetching cocoa puffs:", error);
   }
 });
+
+function createCoconutDiv(id, name) {
+  const coconutDiv = document.createElement("div");
+  coconutDiv.className = "coconut";
+  coconutDiv.setAttribute("data-id", id);
+
+  const topDiv = document.createElement("div");
+  topDiv.className = "top-div";
+
+  const nameDiv = document.createElement("div");
+  nameDiv.className = "name-div";
+  nameDiv.innerHTML = `
+    <span>${name}</span>
+    <a href="#" class="btn btn-link">Arquivar</a>
+  `;
+
+  const buttonDiv = document.createElement("div");
+  buttonDiv.className = "button-div";
+  buttonDiv.innerHTML = `<button type="button" class="btn btn-add-fruity-pebbles">Adicionar Fruity Pebbles</button>`;
+
+  topDiv.appendChild(nameDiv);
+  topDiv.appendChild(buttonDiv);
+
+  const tableDiv = document.createElement("div");
+  tableDiv.className = "table-div";
+  tableDiv.innerHTML = `
+    <label for="table">Fruity Pebbles:</label>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>PebbleCount</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  `;
+
+  const fruityPebblesModal = `
+    <div id="fruityPebblesModal-${id}" class="modal hidden">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Adicionar Fruity Pebbles</h3>
+        <label for="fruityPebbleInput-${id}">Nome:</label>
+        <input type="text" id="fruityPebbleInput-${id}" placeholder="Nome do Fruity Pebble" />
+
+        <label for="fruityPebbleCount-${id}">Quantidade:</label>
+        <input type="number" id="fruityPebbleCount-${id}" placeholder="Quantidade" min="1" />
+
+        <button class="save-fruity-pebble" data-id="${id}">Salvar</button>
+      </div>
+    </div>
+  `;
+
+  coconutDiv.appendChild(topDiv);
+  coconutDiv.appendChild(tableDiv);
+  coconutDiv.innerHTML += fruityPebblesModal;
+
+  return coconutDiv;
+}
 
 // Adiciona um event listener para cliques no botão de arquivar
 document.addEventListener('click', async (event) => {
@@ -204,5 +156,72 @@ document.addEventListener('click', async (event) => {
     }
   }
 });
+
+document.addEventListener("click", async (event) => {
+  if (event.target.classList.contains("btn-add-fruity-pebbles")) {
+    const coconutDiv = event.target.closest(".coconut");
+    const modalId = `fruityPebblesModal-${coconutDiv.getAttribute("data-id")}`;
+    const modal = document.getElementById(modalId);
+
+    modal.classList.remove("hidden");
+    modal.style.display = "block";
+
+    modal.querySelector(".close").addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+  }
+
+  if (event.target.classList.contains("save-fruity-pebble")) {
+    const coconutId = event.target.getAttribute("data-id");
+    const nameInput = document.getElementById(`fruityPebbleInput-${coconutId}`);
+    const countInput = document.getElementById(`fruityPebbleCount-${coconutId}`);
+
+    const name = nameInput.value.trim();
+    const count = parseInt(countInput.value.trim(), 10);
+
+    if (name && !isNaN(count) && count > 0) {
+      try {
+        const response = await fetch(`/api/cocoa_puffs/${coconutId}/fruity_pebbles`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, count }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Erro ao salvar Fruity Pebble");
+        }
+
+        const newPebble = await response.json();
+
+        const tableBody = document.querySelector(`.coconut[data-id="${coconutId}"] table tbody`);
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${newPebble.id}</td>
+          <td>${newPebble.name}</td>
+          <td>${newPebble.count}</td>
+        `;
+        tableBody.appendChild(row);
+
+        const modal = document.getElementById(`fruityPebblesModal-${coconutId}`);
+        modal.style.display = "none";
+        nameInput.value = "";
+        countInput.value = "";
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao salvar Fruity Pebble. Tente novamente.");
+      }
+    } else {
+      alert("Por favor, insira um nome válido e uma quantidade maior que zero.");
+    }
+  }
+});
+
+
+
+
+
+
 
 

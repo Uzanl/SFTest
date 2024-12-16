@@ -2,11 +2,7 @@ const input = document.getElementById("coconut-input");
 const coconutContainer = document.querySelector(".coconut-container");
 
 document.getElementById("add-coconut-button").addEventListener("click", async function () {
-
-
-
   if (input.value.trim() !== "") {
-
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
     console.log("CSRF Token:", csrfToken);
 
@@ -30,6 +26,7 @@ document.getElementById("add-coconut-button").addEventListener("click", async fu
       // Criando o elemento HTML após resposta positiva do servidor
       const coconutDiv = document.createElement("div");
       coconutDiv.className = "coconut";
+      coconutDiv.setAttribute("data-id", newCocoaPuff.id); // Adicionando o atributo data-id com o ID do novo item
 
       // Primeira div (agrupando name-div e button-div)
       const topDiv = document.createElement("div");
@@ -78,7 +75,6 @@ document.getElementById("add-coconut-button").addEventListener("click", async fu
       coconutContainer.appendChild(coconutDiv);
 
       // Limpando o campo de entrada
-
       input.value = "";
     } catch (error) {
       console.error("Erro:", error.message);
@@ -87,11 +83,12 @@ document.getElementById("add-coconut-button").addEventListener("click", async fu
   }
 });
 
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     // Faz a requisição para a API usando await
     const response = await fetch('/api/cocoa_puffs');
-    
+
     // Verifica se a resposta foi bem-sucedida
     if (!response.ok) {
       throw new Error('Failed to fetch cocoa puffs');
@@ -100,9 +97,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Converte a resposta para JSON
     const cocoaPuffs = await response.json();
 
-    // Obtém o container onde as divs serão inseridas
-    //const container = document.getElementById('coconut-container');
-    
     // Limpa o container antes de adicionar novas divs
     coconutContainer.innerHTML = '';
 
@@ -111,6 +105,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Criando o elemento HTML para o coconut
       const coconutDiv = document.createElement("div");
       coconutDiv.className = "coconut";
+
+      coconutDiv.setAttribute("data-id", coconut.id);
+
 
       // Primeira div (agrupando name-div e button-div)
       const topDiv = document.createElement("div");

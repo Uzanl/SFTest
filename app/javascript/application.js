@@ -1,10 +1,9 @@
 const input = document.getElementById("coconut-input");
 const coconutContainer = document.querySelector(".coconut-container");
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 
 document.getElementById("add-coconut-button").addEventListener("click", async function () {
   if (input.value.trim() !== "") {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-    console.log("CSRF Token:", csrfToken);
 
     try {
       const response = await fetch("/api/cocoa_puffs", {
@@ -118,9 +117,6 @@ document.addEventListener('click', async (event) => {
   // Verifica se o clique foi em um link de arquivar
   if (event.target.classList.contains('btn-link')) {
     event.preventDefault();
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-    console.log("CSRF Token:", csrfToken);
-
     // Obtém o elemento pai mais próximo com o atributo data-id
     const coconutDiv = event.target.closest('.coconut');
     const cocoaPuffId = coconutDiv?.dataset.id;
@@ -159,6 +155,8 @@ document.addEventListener('click', async (event) => {
 
 document.addEventListener("click", async (event) => {
   if (event.target.classList.contains("btn-add-fruity-pebbles")) {
+
+  
     const coconutDiv = event.target.closest(".coconut");
     const modalId = `fruityPebblesModal-${coconutDiv.getAttribute("data-id")}`;
     const modal = document.getElementById(modalId);
@@ -180,13 +178,15 @@ document.addEventListener("click", async (event) => {
     const count = parseInt(countInput.value.trim(), 10);
 
     if (name && !isNaN(count) && count > 0) {
+   
       try {
         const response = await fetch(`/api/cocoa_puffs/${coconutId}/fruity_pebbles`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "X-CSRF-Token": csrfToken,
           },
-          body: JSON.stringify({ name, count }),
+          body: JSON.stringify({ name, pebble_count: count })
         });
 
         if (!response.ok) {

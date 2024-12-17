@@ -101,3 +101,18 @@ body {
 .hidden {
   display: none;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* Para juntar as bordas das células */
+}
+
+th, td {
+  border: 1px solid black; /* Borda preta de 1px */
+  padding: 8px; /* Espaçamento interno nas células */
+  text-align: left; /* Alinhamento do texto */
+}
+
+th {
+  background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
+}

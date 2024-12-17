@@ -33,7 +33,9 @@ document.getElementById("add-coconut-button").addEventListener("click", async fu
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+
   try {
+    // Busca todos os Cocoa Puffs
     const response = await fetch("/api/cocoa_puffs");
     if (!response.ok) {
       throw new Error("Failed to fetch cocoa puffs");
@@ -42,14 +44,49 @@ document.addEventListener("DOMContentLoaded", async () => {
     const cocoaPuffs = await response.json();
     coconutContainer.innerHTML = "";
 
-    cocoaPuffs.forEach((coconut) => {
+    // Para cada Cocoa Puff, cria uma div e busca os Fruity Pebbles associados
+    cocoaPuffs.forEach(async (coconut) => {
       const coconutDiv = createCoconutDiv(coconut.id, coconut.name);
+      const table = coconutDiv.querySelector("table");
+
+      // Adicionando as bordas na tabela e nas células via JavaScript
+      table.style.width = "100%";
+      table.style.borderCollapse = "collapse";
+
+      const tableBody = table.querySelector("tbody");
+
+      // Busca os Fruity Pebbles para o Cocoa Puff atual
+      try {
+        const fruityResponse = await fetch(`/api/cocoa_puffs/${coconut.id}/fruity_pebbles`);
+        if (!fruityResponse.ok) {
+          throw new Error(`Failed to fetch Fruity Pebbles for Cocoa Puff ID ${coconut.id}`);
+        }
+
+        const fruityPebbles = await fruityResponse.json();
+
+        // Preenche a tabela com os Fruity Pebbles
+        fruityPebbles.forEach((pebble) => {
+          const row = document.createElement("tr");
+
+          // Adicionando bordas nas células de cada linha
+          row.innerHTML = `
+            <td style="border: 1px solid black; padding: 8px;">${pebble.id}</td>
+            <td style="border: 1px solid black; padding: 8px;">${pebble.name}</td>
+            <td style="border: 1px solid black; padding: 8px;">${pebble.pebble_count}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } catch (fruityError) {
+        console.error(`Error fetching Fruity Pebbles for Cocoa Puff ID ${coconut.id}:`, fruityError);
+      }
+
       coconutContainer.appendChild(coconutDiv);
     });
   } catch (error) {
     console.error("Error fetching cocoa puffs:", error);
   }
 });
+
 
 function createCoconutDiv(id, name) {
   const coconutDiv = document.createElement("div");
@@ -155,7 +192,7 @@ document.addEventListener('click', async (event) => {
 document.addEventListener("click", async (event) => {
   if (event.target.classList.contains("btn-add-fruity-pebbles")) {
 
-  
+
     const coconutDiv = event.target.closest(".coconut");
     const modalId = `fruityPebblesModal-${coconutDiv.getAttribute("data-id")}`;
     const modal = document.getElementById(modalId);
@@ -177,7 +214,7 @@ document.addEventListener("click", async (event) => {
     const count = parseInt(countInput.value.trim(), 10);
 
     if (name && !isNaN(count) && count > 0) {
-   
+
       try {
         const response = await fetch(`/api/cocoa_puffs/${coconutId}/fruity_pebbles`, {
           method: "POST",
@@ -199,7 +236,7 @@ document.addEventListener("click", async (event) => {
         row.innerHTML = `
           <td>${newPebble.id}</td>
           <td>${newPebble.name}</td>
-          <td>${newPebble.count}</td>
+          <td>${newPebble.pebble_count}</td>
         `;
         tableBody.appendChild(row);
 

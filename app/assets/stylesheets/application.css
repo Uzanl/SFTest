@@ -1,3 +1,13 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #f2f2f2;
+  --modal-background: rgba(0, 0, 0, 0.5);
+  --white-color: #fff;
+  --border-color: #888;
+  --close-color: #aaa;
+  --text-color: black;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -17,14 +27,13 @@ body {
 .btn-add-fruity-pebbles {
   padding: 10px;
   border-radius: 10px;
-
 }
 
 .add-coconut-button,
 .btn-add-fruity-pebbles {
   cursor: pointer;
-  color: white;
-  background-color: cadetblue;
+  color: var(--white-color);
+  background-color: var(--primary-color);
 }
 
 .input-section {
@@ -45,7 +54,7 @@ body {
 
 .coconut {
   flex: 0 1 calc((100% / 3) - 82px);
-  border: 1px solid cadetblue;
+  border: 1px solid var(--primary-color);
   border-radius: 50px;
   padding: 20px;
 }
@@ -69,19 +78,19 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-background);
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: var(--white-color);
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid var(--border-color);
   width: 40%;
 }
 
 .close {
-  color: #aaa;
+  color: var(--close-color);
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -94,15 +103,15 @@ body {
 
 table {
   width: 100%;
-  border-collapse: collapse; /* Para juntar as bordas das células */
+  border-collapse: collapse; 
 }
 
 th, td {
-  border: 1px solid black; /* Borda preta de 1px */
-  padding: 8px; /* Espaçamento interno nas células */
-  text-align: left; /* Alinhamento do texto */
+  border: 1px solid var(--text-color); 
+  padding: 8px; 
+  text-align: left; 
 }
 
 th {
-  background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
+  background-color: var(--secondary-color); 
 }

@@ -17,7 +17,7 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-gem 'psych', '5.1.2'
+gem 'psych', '5.2.1'
 
 gem 'rspec-rails', '~> 5.0'
 gem 'factory_bot_rails'

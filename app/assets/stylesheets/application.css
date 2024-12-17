@@ -24,13 +24,15 @@ body {
 
 .coconut-input,
 .add-coconut-button,
-.btn-add-fruity-pebbles {
+.btn-add-fruity-pebbles,
+.save-fruity-pebble {
   padding: 10px;
   border-radius: 10px;
 }
 
 .add-coconut-button,
-.btn-add-fruity-pebbles {
+.btn-add-fruity-pebbles,
+.save-fruity-pebble {
   cursor: pointer;
   color: var(--white-color);
   background-color: var(--primary-color);
@@ -87,6 +89,8 @@ body {
   padding: 20px;
   border: 1px solid var(--border-color);
   width: 40%;
+  display: flex;
+  gap: 10px;
 }
 
 .close {

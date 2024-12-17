@@ -46,7 +46,7 @@ const createCoconutDiv = (id, name) => {
         <input type="text" id="fruityPebbleInput-${id}" placeholder="Nome do Fruity Pebble" />
         <label for="fruityPebbleCount-${id}">Quantidade:</label>
         <input type="number" id="fruityPebbleCount-${id}" placeholder="Quantidade" min="1" />
-        <button class="save-fruity-pebble" data-id="${id}">Salvar</button>
+        <button type="button" class="save-fruity-pebble" data-id="${id}">Salvar</button>
       </div>
     </div>
   `;

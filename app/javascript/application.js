@@ -87,7 +87,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-
 function createCoconutDiv(id, name) {
   const coconutDiv = document.createElement("div");
   coconutDiv.className = "coconut";

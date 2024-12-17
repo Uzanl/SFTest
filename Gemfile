@@ -19,6 +19,9 @@ gem "jbuilder"
 
 gem 'psych', '5.1.2'
 
+gem 'rspec-rails', '~> 5.0'
+gem 'factory_bot_rails'
+
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
